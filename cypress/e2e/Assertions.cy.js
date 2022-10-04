@@ -1,3 +1,4 @@
+const { expect } = require("chai");
 const {describe} = require("mocha");
 
 describe("Assertions Demo",()=>{
@@ -30,6 +31,32 @@ describe("Assertions Demo",()=>{
 
        cy.get("input[placeholder='Username']").should('have.value','admin')
  
+    })
+
+
+    it("explicit assertions ",()=>{
+
+        cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+
+        cy.get("input[placeholder='Username']").type("Admin")
+        cy.get("input[placeholder='Password']").type("admin123")
+        cy.get("button[type='submit']").click()
+
+        let expname="Paul Collins";
+        //class in which the real username is located 
+        cy.get(".oxd-userdropdown-name").then( (x) => {
+                let actName=x.text()
+                //BDD Style
+                expect(actName).to.equal(expname)
+                expect(actName).to.not.equal(expname)
+                //TDD Style
+
+
+        })
+
+
+
+
     })
 
 
